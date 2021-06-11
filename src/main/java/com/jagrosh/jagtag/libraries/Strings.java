@@ -104,7 +104,12 @@ public class Strings {
             // returns a hash of the given input
             new Method("hash", (env, in) -> {
                 return Integer.toString(in[0].hashCode());
-            })
+            }),
+
+            // checks if a string contains another string
+            new Method("contains", (env, in) -> {
+                return String.valueOf(in[1].contains(in[0]));
+            }, "|in:")
         );
     }
 }
