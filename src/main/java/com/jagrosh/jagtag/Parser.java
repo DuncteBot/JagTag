@@ -88,14 +88,18 @@ public class Parser {
 
     /**
      * Parses a String of JagTag code asynchronously, utilizing the object that have been added
+     * <p>This method takes the current parser environment and makes a copy of it resulting in a new env for the parse result</p>
      *
      * @param input The input to be parsed
      * @param callback The result of the parser, called on the parser thread
      */
-    public void parseAsync(String input, Consumer<String> callback) {
-        this.parserThread.submit(
-            () -> callback.accept(this.parse(input))
-        );
+    public void parseAsync(String input, Consumer<ParseResult> callback) {
+        this.parserThread.submit(() -> {
+            final Environment env = this.environment.copy();
+            final String parsed = this.parse(input, env);
+
+            callback.accept(new ParseResult(parsed, env));
+        });
     }
 
     /**
@@ -105,9 +109,21 @@ public class Parser {
      *
      * @return the parsed String
      */
+    public synchronized String parse(String input) {
+        return this.parse(input, this.environment);
+    }
+
+    /**
+     * Parses a String of JagTag code, utilizing the object that have been added
+     *
+     * @param input The input to be parsed
+     * @param environment The environment to use
+     *
+     * @return the parsed String
+     */
     // TODO: the contents of if-statements are parsed before the actual statement itself
     //  This should be fixed by making the parser start on the outside instead of the inside
-    public synchronized String parse(String input) {
+    public synchronized String parse(String input, Environment environment) {
         String output = filterEscapes(input);
         int count = 0;
         String lastoutput = "";

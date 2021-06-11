@@ -16,6 +16,7 @@
 package com.jagrosh.jagtag;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * An environment for parsing that contains Objects that the methods may need.
@@ -24,6 +25,13 @@ import java.util.HashMap;
  * @author John Grosh (jagrosh)
  */
 public class Environment extends HashMap<String, Object> {
+
+    public Environment() {
+    }
+
+    public Environment(Map<? extends String, ?> m) {
+        super(m);
+    }
 
     @SuppressWarnings("unchecked")
     public <T> T get(String key) {
@@ -41,5 +49,9 @@ public class Environment extends HashMap<String, Object> {
         } catch (ClassCastException e) {
             return defaultValue;
         }
+    }
+
+    public Environment copy() {
+        return new Environment(this);
     }
 }
