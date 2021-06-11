@@ -17,7 +17,9 @@ package com.jagrosh.jagtag;
 
 import java.util.Collection;
 import java.util.HashMap;
-
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 /**
  * An object for parsing JagTag code
@@ -25,6 +27,11 @@ import java.util.HashMap;
  * @author John Grosh (jagrosh)
  */
 public class Parser {
+    private final ExecutorService parserThread = Executors.newSingleThreadExecutor((r) -> {
+        final Thread t = new Thread(r, "jagtag parsing thread");
+        t.setDaemon(true);
+        return t;
+    });
     private final HashMap<String, Method> methods;
     private final Environment environment;
     private final long iterations;
@@ -48,9 +55,7 @@ public class Parser {
     public Parser(Collection<Method> methods, long iterations, int maxLength, int maxOutput) {
         this.environment = new Environment();
         this.methods = new HashMap<>();
-        methods.stream().forEach((method) -> {
-            this.methods.put(method.getName(), method);
-        });
+        methods.forEach((method) -> this.methods.put(method.getName(), method));
         this.iterations = iterations;
         this.maxLength = maxLength;
         this.maxOutput = maxOutput;
@@ -82,12 +87,26 @@ public class Parser {
     }
 
     /**
+     * Parses a String of JagTag code asynchronously, utilizing the object that have been added
+     *
+     * @param input The input to be parsed
+     * @param callback The result of the parser, called on the parser thread
+     */
+    public void parseAsync(String input, Consumer<String> callback) {
+        this.parserThread.submit(
+            () -> callback.accept(this.parse(input))
+        );
+    }
+
+    /**
      * Parses a String of JagTag code, utilizing the object that have been added
      *
-     * @param input
+     * @param input The input to be parsed
      *
      * @return the parsed String
      */
+    // TODO: the contents of if-statements are parsed before the actual statement itself
+    //  This should be fixed by making the parser start on the outside instead of the inside
     public synchronized String parse(String input) {
         String output = filterEscapes(input);
         int count = 0;

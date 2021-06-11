@@ -8,14 +8,11 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
-    maven {
-        url = uri("https://repo.maven.apache.org/maven2/")
-    }
+    mavenCentral()
 }
 
-group = "com.jagrosh"
-version = "0.5"
+group = "com.github.DuncteBot"
+version = "0.6"
 description = "JagTag"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
