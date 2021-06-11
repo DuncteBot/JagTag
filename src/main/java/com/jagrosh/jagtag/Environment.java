@@ -20,28 +20,25 @@ import java.util.HashMap;
 /**
  * An environment for parsing that contains Objects that the methods may need.
  * This is just a wrapper for a hashmap of objects.
- * 
+ *
  * @author John Grosh (jagrosh)
  */
-public class Environment extends HashMap<String,Object> {
+public class Environment extends HashMap<String, Object> {
 
     @SuppressWarnings("unchecked")
     public <T> T get(String key) {
-        try{
-            return (T)super.get(key);
-        } catch(ClassCastException e)
-        {
+        try {
+            return (T) super.get(key);
+        } catch (ClassCastException e) {
             return null;
         }
     }
-    
+
     @SuppressWarnings("unchecked")
-    public <T> T getOrDefault(String key, T defaultValue)
-    {
-        try{
-            return (T)super.getOrDefault(key, defaultValue);
-        } catch(ClassCastException e)
-        {
+    public <T> T getOrDefault(String key, T defaultValue) {
+        try {
+            return (T) super.getOrDefault(key, defaultValue);
+        } catch (ClassCastException e) {
             return defaultValue;
         }
     }

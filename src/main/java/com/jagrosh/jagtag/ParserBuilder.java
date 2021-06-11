@@ -20,87 +20,95 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
  * A Builder for a Parser for easier method-adding
- * 
+ *
  * @author John Grosh (jagrosh)
  */
 public class ParserBuilder {
-    
+
     private final List<Method> methods;
     private long iterations = 200;
     private int maxLength = 4000;
     private int maxOutput = 1995;
-    
+
     /**
      * Construct the default builder with no methods
      */
-    public ParserBuilder()
-    {
+    public ParserBuilder() {
         methods = new LinkedList<>();
     }
-    
+
     /**
      * Add a single Method
-     * @param method - the method to add
+     *
+     * @param method
+     *     - the method to add
+     *
      * @return the builder after the method has been added
      */
-    public ParserBuilder addMethod(Method method)
-    {
+    public ParserBuilder addMethod(Method method) {
         this.methods.add(method);
         return this;
     }
-    
+
     /**
      * Add a Collection of Methods
-     * @param methods - the collection to add
+     *
+     * @param methods
+     *     - the collection to add
+     *
      * @return the builder after the methods have been added
      */
-    public ParserBuilder addMethods(Collection<Method> methods)
-    {
+    public ParserBuilder addMethods(Collection<Method> methods) {
         this.methods.addAll(methods);
         return this;
     }
-    
+
     /**
      * Sets the maximum iterations for the parser
-     * @param iterations - the max iterations
+     *
+     * @param iterations
+     *     - the max iterations
+     *
      * @return the builder after the max iterations have been set
      */
-    public ParserBuilder setMaxIterations(long iterations)
-    {
+    public ParserBuilder setMaxIterations(long iterations) {
         this.iterations = iterations;
         return this;
     }
-    
+
     /**
      * Sets the maximum internal length of the parser
-     * @param length - the max internal length
+     *
+     * @param length
+     *     - the max internal length
+     *
      * @return the builder after this max has been set
      */
-    public ParserBuilder setMaxLength(int length)
-    {
+    public ParserBuilder setMaxLength(int length) {
         this.maxLength = length;
         return this;
     }
-    
+
     /**
      * Sets the maximum output length for the parser
-     * @param length - the max output length
+     *
+     * @param length
+     *     - the max output length
+     *
      * @return the builder after the max has been set
      */
-    public ParserBuilder setMaxOutput(int length)
-    {
+    public ParserBuilder setMaxOutput(int length) {
         this.maxOutput = length;
         return this;
     }
-    
+
     /**
      * Builds a new Parser based on the current builder
+     *
      * @return a new Parser
      */
-    public Parser build()
-    {
+    public Parser build() {
         return new Parser(methods, iterations, maxLength, maxOutput);
     }
 }

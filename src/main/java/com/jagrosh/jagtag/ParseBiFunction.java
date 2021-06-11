@@ -16,13 +16,12 @@
 package com.jagrosh.jagtag;
 
 /**
- *
  * A replacement for the BiFunction class which allows throwing a ParseException
- * 
+ *
  * @author John Grosh (jagrosh)
  */
 public interface ParseBiFunction {
 
-    public String apply(Environment env, String[] input) throws ParseException;
-    
+    String apply(Environment env, String[] input) throws ParseException;
+
 }

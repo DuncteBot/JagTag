@@ -16,26 +16,26 @@
 package com.jagrosh.jagtag.libraries;
 
 import com.jagrosh.jagtag.Method;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.UUID;
 
 /**
- *
  * Miscellaneous Library
- * 
+ *
  * @author John Grosh (jagrosh)
  */
-public class Miscellaneous{
+public class Miscellaneous {
 
     public static Collection<Method> getMethods() {
         return Arrays.asList(
-                
+
             // gets a uuid
             new Method("uuid", env -> {
                 return UUID.randomUUID().toString();
             })
         );
     }
-    
+
 }

@@ -16,6 +16,7 @@
 package com.jagrosh.jagtag.libraries;
 
 import com.jagrosh.jagtag.Method;
+
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -24,46 +25,42 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- *
  * Time Library
  * Allows manipulation with time units
- * 
+ *
  * @author John Grosh (jagrosh)
  */
-public class Time{
+public class Time {
 
     public static Collection<Method> getMethods() {
         return Arrays.asList(
-                
+
             // gets the current time
             new Method("now", env -> {
                 return OffsetDateTime.now(ZoneId.of("Z")).format(DateTimeFormatter.RFC_1123_DATE_TIME);
             }, (env, in) -> {
                 try {
                     return OffsetDateTime.now().format(DateTimeFormatter.ofPattern(in[0]));
-                } catch(Exception e) {
+                } catch (Exception e) {
                     return "<invalid time format>";
                 }
             }),
-                
+
             new Method("time", (env, in) -> {
-                String[] parts = in[0].split("\\|",2);
+                String[] parts = in[0].split("\\|", 2);
                 long epoch;
                 try {
                     epoch = Long.parseLong(parts[0]);
-                } catch(Exception e) {
+                } catch (Exception e) {
                     return "<invalid epoch millis>";
                 }
                 DateTimeFormatter format;
-                if(parts.length==1)
-                {
+                if (parts.length == 1) {
                     format = DateTimeFormatter.RFC_1123_DATE_TIME;
-                }
-                else
-                {
+                } else {
                     try {
                         format = DateTimeFormatter.ofPattern(parts[1]);
-                    } catch(Exception e) {
+                    } catch (Exception e) {
                         return "<invalid time format>";
                     }
                 }
@@ -71,5 +68,5 @@ public class Time{
             })
         );
     }
-    
+
 }

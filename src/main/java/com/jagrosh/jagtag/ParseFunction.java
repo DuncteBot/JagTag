@@ -16,13 +16,12 @@
 package com.jagrosh.jagtag;
 
 /**
- *
  * A replacement for the Function class which allows throwing a ParseException
- * 
+ *
  * @author John Grosh (jagrosh)
  */
 public interface ParseFunction {
 
-    public String apply(Environment env) throws ParseException;
-    
+    String apply(Environment env) throws ParseException;
+
 }

@@ -15,25 +15,18 @@
  */
 package com.jagrosh.jagtag;
 
-import com.jagrosh.jagtag.libraries.Arguments;
-import com.jagrosh.jagtag.libraries.Variables;
-import com.jagrosh.jagtag.libraries.Strings;
-import com.jagrosh.jagtag.libraries.Functional;
-import com.jagrosh.jagtag.libraries.Miscellaneous;
-import com.jagrosh.jagtag.libraries.Time;
+import com.jagrosh.jagtag.libraries.*;
 
 /**
- *
  * @author John Grosh (jagrosh)
  */
 public class JagTag {
-    
+
     public static String VERSION = "0.5";
-    
+
     public static String REPOSITORY_URL = "https://github.com/jagrosh/JagTag";
-    
-    public static ParserBuilder newDefaultBuilder()
-    {
+
+    public static ParserBuilder newDefaultBuilder() {
         return new ParserBuilder()
             .addMethods(Arguments.getMethods())
             .addMethods(Functional.getMethods())

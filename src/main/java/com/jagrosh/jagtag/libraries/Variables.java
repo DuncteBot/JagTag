@@ -16,15 +16,15 @@
 package com.jagrosh.jagtag.libraries;
 
 import com.jagrosh.jagtag.Method;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 
 /**
- *
  * Variables Library
  * Allows setting and getting variables
- * 
+ *
  * @author John Grosh (jagrosh)
  */
 public class Variables {
@@ -32,23 +32,22 @@ public class Variables {
     public static Collection<Method> getMethods() {
         return Arrays.asList(
             // creates a variable if it doesn't exist, and sets it to a value
-            new Method("set", (env,in) -> {
-                HashMap<String,String> vars = env.get("vars");
-                if(vars==null)
-                {
+            new Method("set", (env, in) -> {
+                HashMap<String, String> vars = env.get("vars");
+                if (vars == null) {
                     vars = new HashMap<>();
-                    env.put("vars",vars);
+                    env.put("vars", vars);
                 }
                 vars.put(in[0], in[1]);
                 return "";
             }, "|"),
-                
+
             // gets the value of a variable
-            new Method("get", (env,in) -> {
-                HashMap<String,String> vars = env.getOrDefault("vars", new HashMap<>());
+            new Method("get", (env, in) -> {
+                HashMap<String, String> vars = env.getOrDefault("vars", new HashMap<>());
                 return vars.getOrDefault(in[0], "");
             })
         );
     }
-    
+
 }

@@ -16,61 +16,58 @@
 package com.jagrosh.jagtag.libraries;
 
 import com.jagrosh.jagtag.Method;
+
 import java.util.Arrays;
 import java.util.Collection;
 
 /**
- *
  * Arguments Library
  * Allows inserting additional input as "args"
- * 
+ *
  * @author John Grosh (jagrosh)
  */
-public class Arguments{
+public class Arguments {
 
     public static Collection<Method> getMethods() {
         return Arrays.asList(
             // gets the full argument input
             new Method("args", env -> {
-                String args = env.getOrDefault("args","");
-                return args==null ? "" : args;
+                String args = env.getOrDefault("args", "");
+                return args == null ? "" : args;
             }),
-                
+
             // gets the number of arguments when split by whitespace
             new Method("argslen", env -> {
                 String args = env.getOrDefault("args", "");
-                if(args==null)
+                if (args == null)
                     args = "";
-                if(args.length()==0)
+                if (args.length() == 0)
                     return "0";
                 String[] splitargs = env.get("splitargs");
-                if(splitargs==null)
-                {
+                if (splitargs == null) {
                     splitargs = args.split("\\s+");
                     env.put("splitargs", splitargs);
                 }
                 return Integer.toString(splitargs.length);
             }),
-            
+
             // gets the argument at the given index, split by whitespace
-            new Method("arg", (env,in) -> {
+            new Method("arg", (env, in) -> {
                 String[] splitargs = env.get("splitargs");
-                if(splitargs==null)
-                {
-                    String args = env.getOrDefault("args","");
-                    if(args==null)
+                if (splitargs == null) {
+                    String args = env.getOrDefault("args", "");
+                    if (args == null)
                         args = "";
                     splitargs = args.split("\\s+");
                     env.put("splitargs", splitargs);
                 }
-                try{
+                try {
                     return splitargs[Integer.parseInt(in[0]) % splitargs.length];
-                }catch(NumberFormatException ex)
-                {
+                } catch (NumberFormatException ex) {
                     return "";
                 }
             })
         );
     }
-    
+
 }

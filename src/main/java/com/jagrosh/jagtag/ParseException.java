@@ -18,18 +18,16 @@ package com.jagrosh.jagtag;
 /**
  * A JagTag Parsing Exception. Functions identically to a regular exception; the
  * typing is to increase clarity
- * 
+ *
  * @author John Grosh (jagrosh)
  */
 public class ParseException extends Exception {
-    
-    public ParseException(String message, Throwable cause)
-    {
+
+    public ParseException(String message, Throwable cause) {
         super(message, cause);
     }
-    
-    public ParseException(String message)
-    {
+
+    public ParseException(String message) {
         super(message);
     }
 }
