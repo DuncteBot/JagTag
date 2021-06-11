@@ -19,26 +19,32 @@ public class Example
 ```
 Result: `Hello World!!!`
 
+## Gradle
+```kotlin
+repositories {
+    maven("https://jitpack.io")
+}
+
+dependencies {
+    implementation("com.github.DuncteBot:JagTag:Tag")
+}
+```
+
 ## Maven
 To use Maven with JagTag, simply add the following sections to your pom.xml
 ```xml
   <repository>
-    <id>central</id>
-    <name>bintray</name>
-    <url>http://jcenter.bintray.com</url>
-  </repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
 ```
 ```xml
   <dependency>
-    <groupId>com.jagrosh</groupId>
+    <groupId>com.github.DuncteBot</groupId>
     <artifactId>JagTag</artifactId>
-    <version>0.5</version>
+    <version>Tag</version>
   </dependency>
 ```
-
-## Current Projects
-Here are some other projects that utilize JagTag:
-* [**Spectra (Discord Bot)**](https://github.com/jagrosh/Spectra) - Spectra uses JagTag in its customizable "tags" (user-created commands), and in welcome and leave messages for servers. (https://github.com/jagrosh/Spectra/blob/master/src/spectra/jagtag/libraries/Discord.java)
 
 ## Other Libraries
 Below are JagTag-related libraries available for other languages or purposes:
