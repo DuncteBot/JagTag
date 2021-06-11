@@ -66,6 +66,30 @@ public class Functional {
                 return in[2];
             }, "|then:", "|else:"),
 
+            // performs a conditional and outputs true/false
+            new Method("bool", (env, in) -> {
+                if(in[0].equalsIgnoreCase("true"))
+                    return "true";
+                if(in[0].equalsIgnoreCase("false"))
+                    return "false";
+                return Boolean.toString(evaluateStatement(in[0]));
+            }),
+
+            // performs a switch conditional
+            new Method("switch", (env,in) -> {
+                String[] cases = in[1].split("\\|");
+
+                if(cases.length % 2 != 0)
+                    return in[in.length - 1];
+
+                for (int i = 0; i < cases.length; i += 2) {
+                    if(in[0].equals(cases[i]))
+                        return cases[i + 1];
+                }
+
+                return in[in.length - 1];
+            }, "|cases:", "|default:"),
+
             // performs basic mathematical function
             new Method("math", (env, in) -> {
                 return evaluateMath(in[0]);
